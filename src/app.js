@@ -10,13 +10,24 @@ getRecommendations().then(data => console.log(data.list))
 function addElement() {
   getRecommendations().then(data => {
 
+    var header = document.createElement('h3');
+    var headerText = document.createTextNode("You May Like");
+    header.className = 'header';
+    header.appendChild(headerText);
+    document.getElementById('main').appendChild(header);
+
+    var allRecommendations = document.createElement('div');
+    allRecommendations.className = 'recommendations'
+    document.getElementById('main').appendChild(allRecommendations);
+    
     data.list.forEach(element => {
       console.log(element) // TODO - delete
 
       // Create new elements
-      var newDiv = document.createElement('div');
-      newDiv.className = 'card';
+      var cardDiv = document.createElement('div');
+      cardDiv.className = 'card';
       var br = document.createElement('br');
+      var br1 = document.createElement('br');
       var spanName = document.createElement('span');
       spanName.className = 'name';
       var spanBrandding = document.createElement('span');
@@ -30,16 +41,16 @@ function addElement() {
       img.setAttribute('src', element.thumbnail[0].url);
 
       // add the text node to the newly created div
-      newDiv.appendChild(img);
-      newDiv.appendChild(br);
-      newDiv.appendChild(spanName);
+      cardDiv.appendChild(img);
+      cardDiv.appendChild(br1);
+      cardDiv.appendChild(spanName);
       spanName.appendChild(name);
-      newDiv.appendChild(br);
-      newDiv.appendChild(spanBrandding);
+      cardDiv.appendChild(br);
+      cardDiv.appendChild(spanBrandding);
       spanBrandding.appendChild(branding);
       
       // add the newly created element and its content into the DOM
-      document.getElementById('main').appendChild(newDiv);
+      allRecommendations.appendChild(cardDiv);
     });
     
   })

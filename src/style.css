@@ -1,22 +1,38 @@
 #main {
-  display: flex;
+  /* display: flex; */
+  flex-direction: column;
   padding: 10px;
+  background-color: #f8f8f8;
+}
+
+.recommendations {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.header {
+  font-family: 'Gotham XNarrow', Arial, Helvetica, Tahoma, sans-serif;
 }
 
 .card {
-  padding: 6px;
+  padding: 8px;
   flex: 1;
-  width: 300px;
 }
 
 .name {
-  font: optional;
+  font: 'Courier';
+  font-family: 'Gotham XNarrow', Arial, Helvetica, Tahoma, sans-serif;
+  font-weight: bold;
+  font-size: medium;
 }
 
 .brand {
   color: gray;
+  font-family: 'Gotham XNarrow', Arial, Helvetica, Tahoma, sans-serif;
+  font-size: x-small;
+  font-weight: bold;
 }
 
 .img {
-  width: 250px;
+  width: 100%;
 }
