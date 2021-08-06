@@ -1,5 +1,4 @@
 #main {
-  /* display: flex; */
   flex-direction: column;
   padding: 10px;
   background-color: #f8f8f8;
@@ -10,13 +9,28 @@
   flex-wrap: wrap;
 }
 
-.header {
+.top {
+  padding: 8px;
   font-family: 'Gotham XNarrow', Arial, Helvetica, Tahoma, sans-serif;
+  font-weight: bold;
+}
+
+.header {
+  font-size: large;
+}
+
+.disclosure {
+  float: right;
+  font-size: xx-small;
 }
 
 .card {
   padding: 8px;
   flex: 1;
+}
+
+.img {
+  width: 100%;
 }
 
 .name {
@@ -31,8 +45,4 @@
   font-family: 'Gotham XNarrow', Arial, Helvetica, Tahoma, sans-serif;
   font-size: x-small;
   font-weight: bold;
-}
-
-.img {
-  width: 100%;
 }
