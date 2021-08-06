@@ -4,5 +4,19 @@
 }
 
 .card {
+  padding: 6px;
+  flex: 1;
+  width: 300px;
+}
 
+.name {
+  font: optional;
+}
+
+.brand {
+  color: gray;
+}
+
+.img {
+  width: 250px;
 }
