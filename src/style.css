@@ -36,6 +36,11 @@
   font-family: 'Gotham XNarrow', Arial, Helvetica, Tahoma, sans-serif;
   font-weight: bold;
   font-size: medium;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .name:hover {
