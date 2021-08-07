@@ -20,7 +20,8 @@
 
 .disclosure {
   float: right;
-  font-size: xx-small;
+  font-size: x-small;
+  line-height: 2;
 }
 
 .card {
