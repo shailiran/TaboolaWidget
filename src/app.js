@@ -4,13 +4,15 @@ async function getRecommendations() {
   try {
     let response = await fetch(RECOMMENDATIONS);
     let data = await response.json();
+    while (!data.list) {
+      response = await fetch(RECOMMENDATIONS);
+      data = await response.json();
+    }
     return data;
   } catch (error) {
     console.log(error)
   }
 }
-
-getRecommendations().then(data => console.log(data))
 
 function addElement() {
   getRecommendations().then(data => {
@@ -27,10 +29,8 @@ function addElement() {
     document.getElementById('main').appendChild(recommendations_2);
     
     cnt_row = 0;
-
+    console.log(data);
     data.list.forEach(element => {
-      console.log(element) // TODO - delete
-
       // Create new elements
       var cardDiv = document.createElement('div');
       cardDiv.className = 'card';
@@ -48,7 +48,7 @@ function addElement() {
       var spanBrandding = document.createElement('span');
       spanBrandding.className = 'brand'
       var name = document.createTextNode(element.name);
-      var branding_text = element.categories[0] ?
+      var branding_text = element.categories ?
         element.branding + ' | ' + 
         element.categories[0].charAt(0).toUpperCase() + 
         element.categories[0].slice(1) : element.branding;
