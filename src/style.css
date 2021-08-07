@@ -1,5 +1,4 @@
 #main {
-  flex-direction: column;
   padding: 10px;
   background-color: #f8f8f8;
 }
@@ -34,7 +33,6 @@
 }
 
 .name {
-  font: 'Courier';
   font-family: 'Gotham XNarrow', Arial, Helvetica, Tahoma, sans-serif;
   font-weight: bold;
   font-size: medium;
