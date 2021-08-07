@@ -18,28 +18,32 @@ function addElement() {
     // Add header and disclosure
     addTop();
 
-    var allRecommendations = document.createElement('div');
-    allRecommendations.className = 'recommendations'
-    document.getElementById('main').appendChild(allRecommendations);
+    var recommendations_1 = document.createElement('div');
+    recommendations_1.className = 'recommendations'
+    document.getElementById('main').appendChild(recommendations_1);
+
+    var recommendations_2 = document.createElement('div');
+    recommendations_2.className = 'recommendations'
+    document.getElementById('main').appendChild(recommendations_2);
     
+    cnt_row = 0;
+
     data.list.forEach(element => {
       console.log(element) // TODO - delete
 
       // Create new elements
       var cardDiv = document.createElement('div');
       cardDiv.className = 'card';
+      var br = document.createElement('br');
+      var br1 = document.createElement('br');
 
       // Redirect to url
       cardDiv.addEventListener('click', () => {
         window.location.replace(element.url)
       });
 
-      var br = document.createElement('br');
-      var br1 = document.createElement('br');
-
-      
       // Add content
-      var spanName = document.createElement('span');
+      var spanName = document.createElement('a');
       spanName.className = 'name';
       var spanBrandding = document.createElement('span');
       spanBrandding.className = 'brand'
@@ -59,7 +63,14 @@ function addElement() {
       spanBrandding.appendChild(branding);
       
       // add the newly created element and its content into the DOM
-      allRecommendations.appendChild(cardDiv);
+      if (cnt_row < 3) {
+        // Add elements to the first row
+        recommendations_1.appendChild(cardDiv);
+        cnt_row++;
+      } else {
+        // Add elements to the second row
+        recommendations_2.appendChild(cardDiv);
+      }
     });
     
   })
