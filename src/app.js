@@ -5,6 +5,9 @@ async function getRecommendations() {
     let response = await fetch(RECOMMENDATIONS);
     let data = await response.json();
     while (!data.list) {
+      if (data.list.length() < 6) {
+        continue;
+      }
       response = await fetch(RECOMMENDATIONS);
       data = await response.json();
     }
@@ -14,71 +17,7 @@ async function getRecommendations() {
   }
 }
 
-function addElement() {
-  getRecommendations().then(data => {
-
-    // Add header and disclosure
-    addTop();
-
-    var recommendations_1 = document.createElement('div');
-    recommendations_1.className = 'recommendations'
-    document.getElementById('main').appendChild(recommendations_1);
-
-    var recommendations_2 = document.createElement('div');
-    recommendations_2.className = 'recommendations'
-    document.getElementById('main').appendChild(recommendations_2);
-    
-    cnt_row = 0;
-    console.log(data);
-    data.list.forEach(element => {
-      // Create new elements
-      var cardDiv = document.createElement('div');
-      cardDiv.className = 'card';
-      var br = document.createElement('br');
-
-      // Redirect to url
-      cardDiv.addEventListener('click', () => {
-        window.location.replace(element.url)
-      });
-
-      // Add content
-      var spanName = document.createElement('a');
-      spanName.className = 'name';
-      var spanBrandding = document.createElement('span');
-      spanBrandding.className = 'brand'
-      var name = document.createTextNode(element.name);
-      var branding_text = element.categories ?
-        element.branding + ' | ' + 
-        element.categories[0].charAt(0).toUpperCase() + 
-        element.categories[0].slice(1) : element.branding;
-      var branding = document.createTextNode(branding_text);
-      var img = document.createElement('IMG');
-      img.className = 'img';
-      img.setAttribute('src', element.thumbnail[0].url);
-
-      // add the text node to the newly created div
-      cardDiv.appendChild(img);
-      cardDiv.appendChild(br);
-      cardDiv.appendChild(spanName);
-      spanName.appendChild(name);
-      cardDiv.appendChild(spanBrandding);
-      spanBrandding.appendChild(branding);
-      
-      // add the newly created element and its content into the DOM
-      if (cnt_row < 3) {
-        // Add elements to the first row
-        recommendations_1.appendChild(cardDiv);
-        cnt_row++;
-      } else {
-        // Add elements to the second row
-        recommendations_2.appendChild(cardDiv);
-      }
-    });
-    
-  })
-}
-
-function addTop() {
+function createTop() {
   var top = document.createElement('div');
   top.className = 'top'
 
@@ -96,6 +35,90 @@ function addTop() {
   top.appendChild(disclosure);
 
   document.getElementById('main').appendChild(top);
+}
+
+function createRecommendationDiv() {
+  var recommendations1 = document.createElement('div');
+  recommendations1.className = 'recommendations'
+  recommendations1.id = 'recommendations1';
+  document.getElementById('main').appendChild(recommendations1);
+
+  var recommendations2 = document.createElement('div');
+  recommendations2.className = 'recommendations'
+  recommendations2.id = 'recommendations2';
+  document.getElementById('main').appendChild(recommendations2);
+}
+
+function createImageElement(element) {
+  var img = document.createElement('IMG');
+  img.className = 'img';
+  img.setAttribute('src', element.thumbnail[0].url);
+  return img;
+}
+
+function createNameElement(element) {
+  var spanName = document.createElement('a');
+  spanName.className = 'name';
+  var name = document.createTextNode(element.name);
+  spanName.appendChild(name);
+  return spanName;
+}
+
+function createBrandAndCategoryElement(element) {
+  var spanBrandding = document.createElement('span');
+  spanBrandding.className = 'brand'
+  var branding_text = element.categories ?
+    element.branding + ' | ' + 
+    element.categories[0].charAt(0).toUpperCase() + 
+    element.categories[0].slice(1) : element.branding;
+  var branding = document.createTextNode(branding_text);
+  spanBrandding.appendChild(branding);
+  return spanBrandding;
+}
+
+function createCardElement(element) {
+  // Create new elements
+  var cardDiv = document.createElement('div');
+  cardDiv.className = 'card';
+  var br = document.createElement('br');
+
+  // Redirect to url
+  cardDiv.addEventListener('click', () => {
+    window.location.replace(element.url)
+  });
+
+  // Add image, name, brandding and category to card
+  img = createImageElement(element);
+  spanName = createNameElement(element);
+  spanBrandding = createBrandAndCategoryElement(element);
+  cardDiv.appendChild(img);
+  cardDiv.appendChild(br);
+  cardDiv.appendChild(spanName);
+  cardDiv.appendChild(spanBrandding);
+
+  return cardDiv;
+}
+
+function addElement() {
+  getRecommendations().then(data => {
+    // Add header and disclosure
+    createTop();
+    // Create recommendtions divs
+    createRecommendationDiv();
+    cnt_row = 0;
+    data.list.forEach(element => {
+      cardDiv = createCardElement(element);
+      // add the newly created element and its content into the DOM
+      if (cnt_row < 3) {
+        // Add elements to the first row
+        document.getElementById('recommendations1').appendChild(cardDiv);
+        cnt_row++;
+      } else {
+        // Add elements to the second row
+        document.getElementById('recommendations2').appendChild(cardDiv);
+      }
+    });
+  })
 }
 
 document.body.onload = addElement;
