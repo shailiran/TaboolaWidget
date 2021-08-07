@@ -11,6 +11,7 @@
   padding: 8px;
   font-family: 'Gotham XNarrow', Arial, Helvetica, Tahoma, sans-serif;
   font-weight: bold;
+  overflow: hidden;
 }
 
 .header {
