@@ -4,14 +4,8 @@ async function getRecommendations() {
   try {
     let response = await fetch(RECOMMENDATIONS);
     let data = await response.json();
-    while (!data.list) {
-      if (data.list.length() < 6) {
-        // Make sure there are 6 elements
-        continue;
-      }
-      response = await fetch(RECOMMENDATIONS);
-      data = await response.json();
-    }
+    response = await fetch(RECOMMENDATIONS);
+    data = await response.json();
     return data;
   } catch (error) {
     console.log(error)
@@ -110,6 +104,9 @@ function createCardElement(element) {
 
 function addAllRecommendations() {
   getRecommendations().then(data => {
+    if (data.list.length != 6) {
+      addAllRecommendations();
+    }
     // Add header and disclosure to 'main' div
     createTop();
     // Add recommendtions to 'main' div
