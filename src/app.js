@@ -48,7 +48,11 @@ function addElement() {
       var spanBrandding = document.createElement('span');
       spanBrandding.className = 'brand'
       var name = document.createTextNode(element.name);
-      var branding = document.createTextNode(element.branding);
+      var branding_text = element.categories[0] ?
+        element.branding + ' | ' + 
+        element.categories[0].charAt(0).toUpperCase() + 
+        element.categories[0].slice(1) : element.branding;
+      var branding = document.createTextNode(branding_text);
       var img = document.createElement('IMG');
       img.className = 'img';
       img.setAttribute('src', element.thumbnail[0].url);
