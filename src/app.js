@@ -6,6 +6,7 @@ async function getRecommendations() {
     let data = await response.json();
     while (!data.list) {
       if (data.list.length() < 6) {
+        // Make sure there are 6 elements
         continue;
       }
       response = await fetch(RECOMMENDATIONS);
@@ -17,32 +18,40 @@ async function getRecommendations() {
   }
 }
 
-function createTop() {
-  var top = document.createElement('div');
-  top.className = 'top'
-
+function createHeaderElement() {
   var header = document.createElement('span');
   header.className = 'header';
   var headerText = document.createTextNode("You May Like");
   header.appendChild(headerText);
+  return header;
+}
 
+function createDisclosureElement() {
   var disclosure = document.createElement('span');
   disclosure.className = 'disclosure'
   var disclosureText = document.createTextNode("Sponsored Links by Taboola");
   disclosure.appendChild(disclosureText);
+  return disclosure;
+}
 
+function createTop() {
+  var top = document.createElement('div');
+  top.className = 'top'
+  header = createHeaderElement();
   top.appendChild(header);
+  disclosure = createDisclosureElement();
   top.appendChild(disclosure);
-
   document.getElementById('main').appendChild(top);
 }
 
-function createRecommendationDiv() {
+function addRecommendationElements() {
+  // First row of recommendations
   var recommendations1 = document.createElement('div');
   recommendations1.className = 'recommendations'
   recommendations1.id = 'recommendations1';
   document.getElementById('main').appendChild(recommendations1);
 
+  // Second row of recommendations
   var recommendations2 = document.createElement('div');
   recommendations2.className = 'recommendations'
   recommendations2.id = 'recommendations2';
@@ -99,12 +108,12 @@ function createCardElement(element) {
   return cardDiv;
 }
 
-function addElement() {
+function addAllRecommendations() {
   getRecommendations().then(data => {
-    // Add header and disclosure
+    // Add header and disclosure to 'main' div
     createTop();
-    // Create recommendtions divs
-    createRecommendationDiv();
+    // Add recommendtions to 'main' div
+    addRecommendationElements();
     cnt_row = 0;
     data.list.forEach(element => {
       cardDiv = createCardElement(element);
@@ -121,4 +130,4 @@ function addElement() {
   })
 }
 
-document.body.onload = addElement;
+document.body.onload = addAllRecommendations;
