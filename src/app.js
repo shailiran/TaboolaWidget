@@ -105,26 +105,28 @@ function createCardElement(element) {
 function addAllRecommendations() {
   getRecommendations().then(data => {
     if (data.list.length != 6) {
+      console.log("CHECKING");
       addAllRecommendations();
+    } else {
+      // Add header and disclosure to 'main' div
+      createTop();
+      // Add recommendtions to 'main' div
+      addRecommendationElements();
+      cnt_row = 0;
+      data.list.forEach(element => {
+        cardDiv = createCardElement(element);
+        // add the newly created element and its content into the DOM
+        if (cnt_row < 3) {
+          // Add elements to the first row
+          document.getElementById('recommendations1').appendChild(cardDiv);
+          cnt_row++;
+        } else {
+          // Add elements to the second row
+          document.getElementById('recommendations2').appendChild(cardDiv);
+        }
+      });
     }
-    // Add header and disclosure to 'main' div
-    createTop();
-    // Add recommendtions to 'main' div
-    addRecommendationElements();
-    cnt_row = 0;
-    data.list.forEach(element => {
-      cardDiv = createCardElement(element);
-      // add the newly created element and its content into the DOM
-      if (cnt_row < 3) {
-        // Add elements to the first row
-        document.getElementById('recommendations1').appendChild(cardDiv);
-        cnt_row++;
-      } else {
-        // Add elements to the second row
-        document.getElementById('recommendations2').appendChild(cardDiv);
-      }
-    });
-  })
+  });
 }
 
 document.body.onload = addAllRecommendations;
