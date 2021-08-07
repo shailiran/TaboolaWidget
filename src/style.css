@@ -5,7 +5,6 @@
 
 .recommendations {
   display: flex;
-  flex-wrap: wrap;
 }
 
 .top {
@@ -26,6 +25,7 @@
 .card {
   padding: 8px;
   flex: 1;
+  cursor: pointer;
 }
 
 .img {
@@ -38,9 +38,20 @@
   font-size: medium;
 }
 
+.name:hover {
+  text-decoration: underline;
+  color: blue;
+}
+
 .brand {
   color: gray;
   font-family: 'Gotham XNarrow', Arial, Helvetica, Tahoma, sans-serif;
   font-size: x-small;
   font-weight: bold;
+}
+
+@media screen and (max-width: 767px) {
+  .recommendations {
+    flex-direction: column;
+  }
 }
