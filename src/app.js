@@ -35,7 +35,6 @@ function addElement() {
       var cardDiv = document.createElement('div');
       cardDiv.className = 'card';
       var br = document.createElement('br');
-      var br1 = document.createElement('br');
 
       // Redirect to url
       cardDiv.addEventListener('click', () => {
@@ -59,10 +58,9 @@ function addElement() {
 
       // add the text node to the newly created div
       cardDiv.appendChild(img);
-      cardDiv.appendChild(br1);
+      cardDiv.appendChild(br);
       cardDiv.appendChild(spanName);
       spanName.appendChild(name);
-      cardDiv.appendChild(br);
       cardDiv.appendChild(spanBrandding);
       spanBrandding.appendChild(branding);
       
