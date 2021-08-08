@@ -60,9 +60,8 @@ function createImageElement(element) {
 }
 
 function createNameElement(element) {
-  var spanName = document.createElement('a');
+  var spanName = document.createElement('span');
   spanName.className = 'name';
-  spanName.href = element.url;
   var name = document.createTextNode(element.name);
   spanName.appendChild(name);
   return spanName;
@@ -82,21 +81,15 @@ function createBrandAndCategoryElement(element) {
 
 function createCardElement(element) {
   // Create new elements
-  var cardDiv = document.createElement('div');
+  var cardDiv = document.createElement('a');
   cardDiv.className = 'card';
-  var br = document.createElement('br');
-
-  // Redirect to url
-  cardDiv.addEventListener('click', () => {
-    window.location.replace(element.url)
-  });
+  cardDiv.href = element.url;
 
   // Add image, name, brandding and category to card
   img = createImageElement(element);
   spanName = createNameElement(element);
   spanBrandding = createBrandAndCategoryElement(element);
   cardDiv.appendChild(img);
-  cardDiv.appendChild(br);
   cardDiv.appendChild(spanName);
   cardDiv.appendChild(spanBrandding);
 
