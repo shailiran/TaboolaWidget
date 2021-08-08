@@ -66,30 +66,29 @@ function createNameElement(element) {
 }
 
 function createBrandAndCategoryElement(element) {
-  var spanBrandding = document.createElement('span');
-  spanBrandding.className = 'brand'
+  var spanBranddingCategory = document.createElement('span');
+  spanBranddingCategory.className = 'brand'
   var branding_text = element.categories ?
     element.branding + ' | ' + 
     element.categories[0].charAt(0).toUpperCase() + 
     element.categories[0].slice(1) : element.branding;
   var branding = document.createTextNode(branding_text);
-  spanBrandding.appendChild(branding);
-  return spanBrandding;
+  spanBranddingCategory.appendChild(branding);
+  return spanBranddingCategory;
 }
 
 function createCardElement(element) {
-  // Create new elements
   var cardDiv = document.createElement('a');
   cardDiv.className = 'card';
   cardDiv.href = element.url;
 
-  // Add image, name, brandding and category to card
+  // Add image, name, and brandding + category to card
   img = createImageElement(element);
-  spanName = createNameElement(element);
-  spanBrandding = createBrandAndCategoryElement(element);
   cardDiv.appendChild(img);
+  spanName = createNameElement(element);
   cardDiv.appendChild(spanName);
-  cardDiv.appendChild(spanBrandding);
+  spanBranddingCategory = createBrandAndCategoryElement(element);
+  cardDiv.appendChild(spanBranddingCategory);
 
   return cardDiv;
 }
@@ -102,16 +101,15 @@ function addAllRecommendations() {
     } else {
       // Add header and disclosure to 'main' div
       createTop();
-      // Add recommendtions to 'main' div
+      // Add recommendtions rows to 'main' div
       addRecommendationElements();
-      cnt_row = 0;
+      cnt_row_elements = 0;
       data.list.forEach(element => {
         cardDiv = createCardElement(element);
-        // add the newly created element and its content into the DOM
-        if (cnt_row < 3) {
+        if (cnt_row_elements < 3) {
           // Add elements to the first row
           document.getElementById('recommendations1').appendChild(cardDiv);
-          cnt_row++;
+          cnt_row_elements++;
         } else {
           // Add elements to the second row
           document.getElementById('recommendations2').appendChild(cardDiv);
