@@ -62,6 +62,7 @@ function createImageElement(element) {
 function createNameElement(element) {
   var spanName = document.createElement('a');
   spanName.className = 'name';
+  spanName.href = element.url;
   var name = document.createTextNode(element.name);
   spanName.appendChild(name);
   return spanName;
@@ -105,9 +106,10 @@ function createCardElement(element) {
 function addAllRecommendations() {
   getRecommendations().then(data => {
     if (data.list.length != 6) {
-      console.log("CHECKING");
+      // Did not get 6 recommendations
       addAllRecommendations();
     } else {
+
       // Add header and disclosure to 'main' div
       createTop();
       // Add recommendtions to 'main' div
